@@ -1,41 +1,54 @@
-
-import React, {useState} from 'react';
-import { FlatList, StyleSheet, TouchableWithoutFeedback,Keyboard, View, Alert, Text} from 'react-native';
+ 
+import React, {useState, useEffect} from 'react';
+import { FlatList, StyleSheet, TouchableWithoutFeedback,Keyboard, View, Alert, Text,ScrollView} from 'react-native';
 import Header from './components/header'
 import TaskToDo from './components/taskToDo'
 import AddTaskToDo from './components/addTaskToDo'
+import {firebase} from './Fire'
 
-export default function App() {
+ export default function App() {
 
-  const[todos,setTodos]= useState([{ text:'plan a trip', 
-  key:1},{ text:'study for', 
-  key: 2},{text:'train for', 
-  key: 3}])
+  const[todos,setTodos]= useState([])
 
+  const database = firebase.firestore().collection('todos');
+
+  console.log('ppppppppppppp');
+  useEffect(()=>{
+    database.onSnapshot((query)=>{
+        const list=[]
+        console.log('ppp');
+        query.forEach((doc)=>{
+          const newTask=doc.data()
+            newTask.id=doc.id
+            console.log('aaaaa');
+            list.push(newTask)
+            console.log(newTask);
+        })
+        setTodos(list)
+    })
+  },[])
   
-
   const pressHandler= (key)=>{
     setTodos((prevTodos) =>{
       return prevTodos.filter(todo=> todo.key !=key)
     })
   }
-
-
   const submitHandler= (text) => {
 
     if(text.length>3 && text.length<100){
       setTodos((prevTodos)=> {
         return[
-          {text: text, key:Math.random().toString()},
+          {task: text, },
           ...prevTodos]
     })
     } else {
       Alert.alert('Wrong Input','your must be between 3 and 100 character',[
         {text:'OK!', onPress:()=>console.log('alert close')}
       ])
-    }
-   
+    }  
   }
+
+  
 
   return (
     <TouchableWithoutFeedback onPress={()=>{Keyboard.dismiss()}}>
@@ -52,12 +65,17 @@ export default function App() {
         <View style={styles.divider}/>
           <View style={styles.list}>
 
-            <FlatList
-                data={todos}
-                renderItem={({item})=>(
-                    <TaskToDo item={item} pressHandler={pressHandler}/>
-                )}         
-            />
+              <ScrollView>
+                {todos.map((todo)=>{
+
+                  return (
+                    <View style={styles.item}> 
+                      <Text key={todo.id}>{todo.task}</Text>
+                    </View>)
+                })}
+
+              </ScrollView>
+
           </View>
         </View>
       </View>
@@ -87,5 +105,13 @@ const styles = StyleSheet.create({
     fontWeight:'800',
     color: 'black',
     paddingHorizontal: 64
+  },
+  item: {  
+    padding:16,  
+    paddingTop: 16,
+    borderColor: 'green',
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderRadius: 10
   },
 });

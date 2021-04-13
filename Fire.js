@@ -10,19 +10,10 @@ var firebaseConfig = {
     appId: "1:941622748596:web:09d5fe99128dec7195fee1"
   };
 
+  if (!firebase.apps.length) {
+         firebase.initializeApp(firebaseConfig);
+}  
+    
+export {firebase};
 
-export default class Fire {
-    init(){
-        if(!firebase.apps.length){
-            firebase.initializeApp(firebaseConfig)
-        }
-
-        firebase.auth().onAuthStateChanged(user=>{
-            if(user){
-
-            } else{
-                firebase.auth().signInAnonymously().catch(error =>{})
-            }
-        })
-    }
-}
+//export const database=firebase.firestore()

@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, TextInput ,TouchableOpacity} from 'react-native';
+import {database} from '../Fire'
 
 
 export default function AddTaskToDo({submitHandler}){
-    const[task,setTask]=useState('')
+
+    const[task,setTask]=useState([])
+  
 
     const changeHandler = (val)=>{
         setTask(val)
