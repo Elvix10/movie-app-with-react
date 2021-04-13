@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import { FlatList, StyleSheet, TouchableWithoutFeedback,Keyboard, View, Alert, TouchableNativeFeedbackComponent} from 'react-native';
+import { FlatList, StyleSheet, TouchableWithoutFeedback,Keyboard, View, Alert, Text} from 'react-native';
 import Header from './components/header'
 import TaskToDo from './components/taskToDo'
 import AddTaskToDo from './components/addTaskToDo'
@@ -41,6 +41,13 @@ export default function App() {
         <Header/>
         <View style={styles.content}>
           <AddTaskToDo submitHandler={submitHandler}/>
+
+        <View style={styles.divider}/>
+        <Text style={styles.title}> Tasks
+            <Text style={{fontWeight:'300', color: '#40E0D0'}}>List</Text>
+
+        </Text>
+        <View style={styles.divider}/>
           <View style={styles.list}>
 
             <FlatList
@@ -65,8 +72,18 @@ const styles = StyleSheet.create({
     padding: 40, 
   },
   list:{
-    marginTop: 20,
-
-    
-  }
+    marginTop: 20, 
+  },
+  divider: {
+    backgroundColor: '#40E0D0',
+    height:1,
+    flex:1,
+    alignSelf:'center'
+  }, 
+  title: {
+    fontSize:38,
+    fontWeight:'800',
+    color: 'black',
+    paddingHorizontal: 64
+  },
 });
