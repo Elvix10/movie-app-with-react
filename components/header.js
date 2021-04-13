@@ -15,7 +15,7 @@ export default function App() {
     header: {     
       height:80,
       paddingTop: 38,
-      backgroundColor: 'red',
+      backgroundColor: '#3CB371',
     },
     title:{
         textAlign: 'center',

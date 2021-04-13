@@ -20,7 +20,7 @@ export default function AddTaskToDo({submitHandler}){
             />
             <TouchableOpacity 
                 style={[styles.create, {backgroundColor: '#00FF7F'}]}
-                onPress={()=>submitHandler(task)}
+                onPress={()=> {submitHandler(task)}}
                  >
                     <Text style={{color:'white', fontWeight: '600'}}>Add Task</Text>
                 </TouchableOpacity>

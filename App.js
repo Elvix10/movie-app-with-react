@@ -27,9 +27,8 @@ export default function App() {
   
   const pressHandler= (id)=>{
 
-    setTodos((prevTodos) =>{      
-      return prevTodos.filter(todo=> todo.id !=id)
-    })
+    database.collection('todos').doc(id).delete();
+  
   }
   const submitHandler= (text) => {
 
