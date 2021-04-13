@@ -34,12 +34,11 @@ export default function App() {
   const submitHandler= (text) => {
 
     if(text.length>3 && text.length<100){
-      setTodos((prevTodos)=> {
-        return[
-          {task: text, },
-          ...prevTodos]
-    })
+
+       database.collection('todos').add({task: text})
+       
     } else {
+
       Alert.alert('Wrong Input','your must be between 3 and 100 character',[
         {text:'OK!', onPress:()=>console.log('alert close')}
       ])
