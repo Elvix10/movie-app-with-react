@@ -6,8 +6,7 @@ import {database} from '../Fire'
 export default function AddTaskToDo({submitHandler}){
 
     const[task,setTask]=useState([])
-  
-
+    
     const changeHandler = (val)=>{
         setTask(val)
     }

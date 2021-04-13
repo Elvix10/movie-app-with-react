@@ -1,36 +1,34 @@
  
 import React, {useState, useEffect} from 'react';
-import { FlatList, StyleSheet, TouchableWithoutFeedback,Keyboard, View, Alert, Text,ScrollView} from 'react-native';
+import {StyleSheet, TouchableWithoutFeedback,Keyboard, View, Alert, Text,ScrollView} from 'react-native';
 import Header from './components/header'
+
 import TaskToDo from './components/taskToDo'
 import AddTaskToDo from './components/addTaskToDo'
-import {firebase} from './Fire'
+import {database} from './Fire'
 
- export default function App() {
+export default function App() {
 
   const[todos,setTodos]= useState([])
 
-  const database = firebase.firestore().collection('todos');
-
-  console.log('ppppppppppppp');
   useEffect(()=>{
-    database.onSnapshot((query)=>{
-        const list=[]
-        console.log('ppp');
+
+        database.collection('todos').onSnapshot((query)=>{
+        const list=[]        
         query.forEach((doc)=>{
-          const newTask=doc.data()
+
+            const newTask=doc.data()
             newTask.id=doc.id
-            console.log('aaaaa');
-            list.push(newTask)
-            console.log(newTask);
+            list.push(newTask)            
         })
         setTodos(list)
     })
   },[])
   
-  const pressHandler= (key)=>{
-    setTodos((prevTodos) =>{
-      return prevTodos.filter(todo=> todo.key !=key)
+  const pressHandler= (id)=>{
+
+    setTodos((prevTodos) =>{      
+      return prevTodos.filter(todo=> todo.id !=id)
     })
   }
   const submitHandler= (text) => {
@@ -48,8 +46,6 @@ import {firebase} from './Fire'
     }  
   }
 
-  
-
   return (
     <TouchableWithoutFeedback onPress={()=>{Keyboard.dismiss()}}>
       <View style={styles.container}>
@@ -58,24 +54,26 @@ import {firebase} from './Fire'
           <AddTaskToDo submitHandler={submitHandler}/>
 
         <View style={styles.divider}/>
+
         <Text style={styles.title}> Tasks
             <Text style={{fontWeight:'300', color: '#40E0D0'}}>List</Text>
-
         </Text>
+
         <View style={styles.divider}/>
+
           <View style={styles.list}>
 
               <ScrollView>
                 {todos.map((todo)=>{
-
                   return (
-                    <View style={styles.item}> 
-                      <Text key={todo.id}>{todo.task}</Text>
-                    </View>)
+                    <TaskToDo 
+                      item={todo} 
+                      pressHandler={pressHandler}
+                    />
+                    )
                 })}
 
               </ScrollView>
-
           </View>
         </View>
       </View>

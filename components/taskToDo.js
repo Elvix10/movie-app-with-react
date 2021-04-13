@@ -4,9 +4,10 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 export default function TaskToDo({item, pressHandler}){
     return(
-        <TouchableOpacity onPress = {()=> pressHandler(item.key)}>
+        <TouchableOpacity onPress = {()=> pressHandler(item.id)}>
 
-            <Text style={styles.item}>{item.task}</Text>
+            <Text key={item.id} style={styles.item}>{item.task}</Text>
+
         </TouchableOpacity>
     )
 }
