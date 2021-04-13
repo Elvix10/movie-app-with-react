@@ -20,7 +20,7 @@ export default function AddTaskToDo({submitHandler}){
                 style={[styles.create, {backgroundColor: '#00FF7F'}]}
                 onPress={()=>submitHandler(task)}
                  >
-                    <Text style={{color:'white', fontWeight: '600'}}>Add new Task</Text>
+                    <Text style={{color:'white', fontWeight: '600'}}>Add Task</Text>
                 </TouchableOpacity>
         </View>
     )

@@ -12,6 +12,8 @@ export default function App() {
   key: 2},{text:'train for', 
   key: 3}])
 
+  
+
   const pressHandler= (key)=>{
     setTodos((prevTodos) =>{
       return prevTodos.filter(todo=> todo.key !=key)
