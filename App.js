@@ -38,7 +38,7 @@ export default function App() {
        
     } else {
 
-      Alert.alert('Wrong Input','your must be between 3 and 100 character',[
+      Alert.alert('Wrong Input','your input must be between 3 and 100 character',[
         {text:'OK!', onPress:()=>console.log('alert close')}
       ])
     }  
