@@ -1,1 +1,1 @@
-# movie-app-with-react
+# todo-list with react native and firebase
